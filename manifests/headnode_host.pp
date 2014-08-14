@@ -1,4 +1,4 @@
-class headnode_host (
+class haas::headnode_host (
   $trunk_nic,
   $dev_mode = false,
 ) {
@@ -20,7 +20,7 @@ class headnode_host (
   }
   service { 'libvirtd':
     ensure => running,
-    enbale => true,
+    enable => true,
   }
   if $dev_mode {
     package {
