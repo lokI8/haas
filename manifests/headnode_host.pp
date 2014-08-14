@@ -10,7 +10,7 @@ class haas::headnode_host (
     [
       'libvirt',
       'libvirt-client',
-      'python-libvirt',
+      'python-virtinst',
       'vconfig',
       'bridge-utils',
       'telnet',
