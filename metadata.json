@@ -1,0 +1,14 @@
+{
+  "name": "moc-haas",
+  "version": "0.0.1",
+  "author": "Ian Denhardt",
+  "summary": "Manages the HaaS tool.",
+  "license": "Apache 2.0",
+  "source": "https://github.com/cci-moc/puppet-haas",
+  "issues_url": "https://github.com/cci-moc/puppet-haas/issues",
+  "dependencies": [
+    {
+      "name": "stahnma-epel"
+    }
+  ]
+}
