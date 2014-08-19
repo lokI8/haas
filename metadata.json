@@ -9,6 +9,12 @@
   "dependencies": [
     {
       "name": "stahnma-epel"
+    },
+    {
+      "name": "puppetlabs-firewall"
+    },
+    {
+      "name": "thias-sysctl"
     }
   ]
 }
