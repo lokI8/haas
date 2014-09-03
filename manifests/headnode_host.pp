@@ -58,6 +58,13 @@ class haas::headnode_host (
     outiface => $external_nic,
     proto => 'all',
     jump => 'MASQUERADE',
+  }->
+  firewall {'103 Accept dhcp and dns requests from headnodes.':
+    chain => 'INPUT',
+    iniface => $libvirt_bridge,
+    proto => 'udp',
+    port => [53, 67, 68],
+    action => 'accept',
   }
   if $dev_mode {
     package {
