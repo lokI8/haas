@@ -42,13 +42,22 @@ class haas::headnode_host (
     chain => 'FORWARD',
     iniface => $libvirt_bridge,
     outiface => $external_nic,
+    proto => 'all',
     action => 'accept',
   }->
   firewall { '101 Allow existing connections to/from the headnodes.':
     chain => 'FORWARD',
     outiface => $libvirt_bridge,
+    proto => 'all',
     state => ['RELATED', 'ESTABLISHED'],
     action => 'accept',
+  }->
+  firewall { '102 Nat traffic going to the outside world.':
+    table => 'nat',
+    chain => 'POSTROUTING',
+    outiface => $external_nic,
+    proto => 'all',
+    jump => 'MASQUERADE',
   }
   if $dev_mode {
     package {
