@@ -30,6 +30,7 @@ class haas::headnode_host (
       'bridge-utils',
       'telnet',
       'qemu-kvm',
+      'ipmitool',
     ] :
     ensure => present,
   }
