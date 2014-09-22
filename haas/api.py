@@ -410,8 +410,9 @@ def node_connect_network(node, nic, network):
     if not node.project:
         raise ProjectMismatchError("Node not in project")
 
-    if node.project.label is not network.project.label:
-        raise ProjectMismatchError("Node and network in different projects")
+    if node.project.label != network.project.label:
+        if network.project.label != "public":
+            raise ProjectMismatchError("Node and network in different projects")
 
     project = node.project
 
@@ -580,8 +581,9 @@ def headnode_connect_network(headnode, hnic, network):
     if not headnode.dirty:
         raise IllegalStateError
 
-    if headnode.project.label is not network.project.label:
-        raise ProjectMismatchError("Headnode and network in different projects")
+    if headnode.project.label != network.project.label:
+        if network.project.label != "public":
+            raise ProjectMismatchError("Node and network in different projects")
 
     if hnic.network:
         # The nic is already part of a network; report an error to the user.
@@ -631,6 +633,8 @@ def network_create(network, project):
     If the network cannot be allocated (due to resource exhaustion), an
     AllocationError will be raised.
     """
+    #TODO: check that the user is admin to create public network
+
     db = model.Session()
     _assert_absent(db, model.Network, network)
     project = _must_find(db, model.Project, project)

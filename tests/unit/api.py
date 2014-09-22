@@ -442,6 +442,23 @@ class TestNodeConnectDetachNetwork:
         assert nic in network.nics
 
     @database_only
+    def test_node_connect_public_network_success(self, db):
+        api.node_register('node-99', 'ipmihost', 'root', 'tapeworm')
+        api.node_register_nic('node-99', '99-eth0', 'DE:AD:BE:EF:20:14')
+        api.group_create('admins')
+        api.group_create('acme-code')
+        api.project_create('anvil-nextgen', 'acme-code')
+        api.project_create('public', 'admins')
+        api.project_connect_node('anvil-nextgen', 'node-99')
+        api.network_create('hammernet', 'public')
+
+        api.node_connect_network('node-99', '99-eth0', 'hammernet')
+        network = api._must_find(db, model.Network, 'hammernet')
+        nic = api._must_find(db, model.Nic, '99-eth0')
+        assert nic.network is network
+        assert nic in network.nics
+        
+    @database_only
     def test_node_connect_network_wrong_node_in_project(self, db):
         api.node_register('node-99', 'ipmihost', 'root', 'tapeworm')
         api.node_register_nic('node-99', '99-eth0', 'DE:AD:BE:EF:20:14')
