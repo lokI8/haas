@@ -1,4 +1,4 @@
-#! /bin/bash
+#!/bin/bash
 #to run script: pass image name as argument
 
 size=$(stat -Lc%s $1)
