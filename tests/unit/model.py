@@ -108,4 +108,4 @@ class TestHnic(ModelTest):
 class TestNetwork(ModelTest):
 
     def sample_obj(self):
-        return Network(Project(Group('acme_corp'), 'anvil-nextgen'), '102', 'hammernet')
+        return Network(Project(Group('acme_corp'), 'anvil-nextgen'), '102', 'hammernet', False)

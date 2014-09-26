@@ -200,7 +200,11 @@ class Network(Model):
     # An identifier meaningful to the networking driver:
     network_id    = Column(String, nullable=False)
 
-    def __init__(self, project, network_id, label):
+    # True if the network is a provider (administrator-created) network, and
+    # False if the network was created by a normal user.
+    is_provider   = Column(Boolean, nullable=False)
+
+    def __init__(self, project, network_id, label, is_provider):
         """Create a network.
 
         The network will belong to `project`, and have a symbolic name of
@@ -210,6 +214,7 @@ class Network(Model):
         self.network_id = network_id
         self.project = project
         self.label = label
+        self.is_provider = is_provider
 
 
 

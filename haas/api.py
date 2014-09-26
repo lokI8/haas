@@ -649,7 +649,7 @@ def network_create(network, project):
     if network_id is None:
         raise AllocationError('No more networks')
 
-    network = model.Network(project, network_id, network)
+    network = model.Network(project, network_id, network, False)
     db.add(network)
     db.commit()
 
@@ -663,6 +663,8 @@ def network_delete(network):
     db = model.Session()
     network = _must_find(db, model.Network, network)
 
+    if network.is_provider:
+        raise NotFoundError("Use network_delete_provider to delete provider networks")
     if network.nics:
         raise BlockedError("Network still connected to nodes")
     if network.hnics:
