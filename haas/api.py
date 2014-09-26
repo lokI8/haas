@@ -654,6 +654,23 @@ def network_create(network, project):
     db.commit()
 
 
+@rest_call('PUT', '/providernetwork/<network>')
+def network_create_provider(network, project, net_id):
+    """Create a provider network with the given net_id.
+
+    The given project will be the sole project able to connect to it.
+
+    If a network with that name already exists, a DuplicateError will be
+    raised.
+    """
+    db = model.Session()
+    _assert_absent(db, model.Network, network)
+    project = _must_find(db, model.Project, project)
+    network = model.Network(project, net_id, network, True)
+    db.add(network)
+    db.commit()
+
+
 @rest_call('DELETE', '/network/<network>')
 def network_delete(network):
     """Delete network.
@@ -675,6 +692,28 @@ def network_delete(network):
     driver_name = cfg.get('general', 'driver')
     driver = importlib.import_module('haas.drivers.' + driver_name)
     driver.free_network_id(db, network.network_id)
+
+    db.delete(network)
+    db.commit()
+
+
+@rest_call('DELETE', '/providernetwork/<network>')
+def network_delete_provider(network):
+    """Dekete a provider network.
+
+    If the provider network does not exist, a NotFoundError will be raised.
+    """
+    db = model.Session()
+    network = _must_find(db, model.Network, network)
+
+    if not network.is_provider:
+        raise NotFoundError("Use network_delete to delete normal networks")
+    if network.nics:
+        raise BlockedError("Network still connected to nodes")
+    if network.hnics:
+        raise BlockedError("Network still connected to headnodes")
+    if network.project.dirty:
+        raise BlockedError("Project dirty")
 
     db.delete(network)
     db.commit()

@@ -108,6 +108,19 @@ def network_delete(network):
     check_status_code(requests.delete(url))
 
 @cmd
+def network_create_provider(network, project, net_id):
+    """Register <network> with underlying <net_id>, and let <project> access it"""
+    url = object_url('prodivernetwork', network)
+    check_status_code(requests.put(url, data={'project': project,
+                                              'net_id': net_id}))
+
+@cmd
+def network_delete_provider(network):
+    """Delete a provider <network>"""
+    url = object_url('providernetwork', network)
+    check_status_code(requests.delete(url))
+
+@cmd
 def user_delete(username):
     """Delete the user <username>"""
     url = object_url('user', username)

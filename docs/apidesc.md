@@ -87,6 +87,10 @@ project at the same time.
     # create and delete logical networks
     network_create              <network_label> <project_label>
     network_delete              <network_label>
+
+    network_create_provider     <network_label> <project_label> <net_id>
+    network_delete_provider     <network_label>
+
  
     headnode_create             <hn_label> <project_label>
     headnode_delete             <hn_label>

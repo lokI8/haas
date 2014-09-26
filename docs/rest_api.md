@@ -23,6 +23,12 @@ Full Api spec:
     [PUT]    /network/<network_label> {project=<project_label>}
     [DELETE] /network/<network_label>
 
+    network_create_provider <network_label> <project_label> <underlying_net_id>
+    network_delete_provider <network_label>
+    [PUT]    /providernetwork/<network_label>
+                {project=<project_label>, net_id=<underlying_net_id>}
+    [DELETE] /providernetwork/<network_label>
+
     headnode_create <hn_label> <project_label>
     headnode_delete <hn_label>
     headnode_start <hn_label>
