@@ -7,4 +7,3 @@ to create headnode:
     - set the ram and disk space required
     - modify the disk image path to match your image
 3) run virsh define [yourVM].xml
-4) virsh start [yourVM]
