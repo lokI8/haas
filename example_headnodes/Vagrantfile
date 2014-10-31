@@ -22,6 +22,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   
   # Create a private network, which allows host-only access to the machine
   # using a specific IP.
+  # The set IP is later used in static configuration files for the services, specifically dhcp
+  # Vagrant will assign the management network for the vm to eth0, so the dhcp network is on eth1
   config.vm.network :private_network, :dev => "eth1", :ip => "192.168.1.15", :mac => "52:54:00:10:e8:e8"
 
 end
