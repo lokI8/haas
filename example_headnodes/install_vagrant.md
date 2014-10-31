@@ -1,4 +1,4 @@
-download correct vagrant package at: https://www.vagrantup.com/downloads (seperate per distro)
+download correct vagrant package at: https://www.vagrantup.com/downloads (seperate per distro) OR install through your package manager (sudo apt-get update, sudo apt-get install vagrant)
 
 download box: https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box
 

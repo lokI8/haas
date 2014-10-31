@@ -1,17 +1,9 @@
 ## Packages to be installed ##
-package { 'isc-dhcp-server':
-  ensure  => present,
-}
-
-package { 'apache2':
-  ensure  => present,
-}
-
-package { 'tftpd-hpa':
-  ensure  => present,
-}
-
-package { 'inetutils-inetd':
+package { [
+    'isc-dhcp-server',
+    'apache2',
+    'tftpd-hpa',
+    'inetutils-inetd']:
   ensure  => present,
 }
 
@@ -27,13 +19,13 @@ mount { "/mnt":
 ## Files to be updated ##
 file { '/etc/default/isc-dhcp-server':
   ensure  => present,
-  source  => "/vagrant/manifests/templates/isc-dhcp-server",
+  source  => "/vagrant/manifests/static/isc-dhcp-server",
   require  => Package["isc-dhcp-server"]
 }
 
 file { '/etc/dhcp/dhcp.conf':
   ensure  => present,
-  source  => "/vagrant/manifests/templates/dhcp.conf",
+  source  => "/vagrant/manifests/static/dhcp.conf",
   require  => Package["isc-dhcp-server"],
   notify  => Service["isc-dhcp-server"]
 }
@@ -41,19 +33,19 @@ file { '/etc/dhcp/dhcp.conf':
 file { "/etc/default/tftpd-hpa":
   ensure  => present,
   require  => Package["tftpd-hpa"],
-  source  => "/vagrant/manifests/templates/tftpd-hpa",
+  source  => "/vagrant/manifests/static/tftpd-hpa",
 }
 
 file { "/etc/inetd.conf":
   ensure  => present,
   require  => Package["inetutils-inetd"],
-  source  => "/vagrant/manifests/templates/inetd.conf",
+  source  => "/vagrant/manifests/static/inetd.conf",
   notify  => Service["tftpd-hpa"]
 }
 
 file { "/var/lib/tftpboot/pxelinux.cfg/default":
   ensure  => present,
-  source  => "/vagrant/manifests/templates/pxelinux_cfg",
+  source  => "/vagrant/manifests/static/pxelinux_cfg",
   require  => Package["tftpd-hpa"],
 }
 
@@ -84,7 +76,3 @@ service { 'tftpd-hpa':
   path  => "/etc/init.d/tftpd-hpa"
 }
 
-
-#mount { "/mnt":
-#  ensure  => present,
-#  device  => "localhost:/home/sk/ubuntu-14.04-
