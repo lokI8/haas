@@ -2,7 +2,6 @@
     <name>exampleVM</name>
     <currentMemory>524288</currentMemory>
     <memory>524288</memory>
-    <uuid>30d18a08-d6d8-d5d4-f675-8c42c11d6c62</uuid>
     <os>
         <type arch='x86_64'>hvm</type>
         <boot dev='hd'/>
@@ -16,7 +15,7 @@
     <on_crash>restart</on_crash>
     <vcpu>1</vcpu>
     <devices>
-        <emulator>/usr/bin/qemu-kvm</emulator>
+        <emulator>/usr/libexec/qemu-kvm</emulator>
         <disk type='file' device='disk'>
             <driver name='qemu' type='raw'/>
             <source file='/var/lib/libvirt/images/exampleVM.img'/>

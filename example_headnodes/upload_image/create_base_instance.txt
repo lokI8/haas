@@ -1,9 +1,10 @@
-to create headnode:
+to create a base instance:
 
 1) copy exampleVM.xml to [yourVM].xml
+
 2) edit the xml file to:
     - change the vm name to your name
-    - change UUID (might be necessary?)
     - set the ram and disk space required
-    - modify the disk image path to match your image
+    - modify the disk volume path to match your image
+
 3) run virsh define [yourVM].xml
