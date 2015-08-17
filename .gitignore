@@ -1,8 +1,12 @@
+*.swp
 *.pyc
 *.~
+.ropeproject
 *.egg-info
 build
 dist
 .venv
+.coverage
 *.db
-haas.cfg
+/haas.cfg
+/testsuite.cfg

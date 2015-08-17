@@ -1,5 +1,0 @@
-flask
-sqlalchemy
-Flask-HTTPAuth
-pexpect
-tabulate
